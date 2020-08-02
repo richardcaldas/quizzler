@@ -10,7 +10,7 @@ import Foundation
 
 struct QuizBrain {
     
-    let quiz = [
+    let quizSingleOption = [
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
         Question(q: "The total surface area of two human lungs is approximately 70 square metres.", a: "True"),
@@ -25,12 +25,33 @@ struct QuizBrain {
         Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
     ]
     
+    
+    let quizMultipleChoice = [
+        QuestionMultipleChoice(q: "Which is the largest organ in the human body?", a: ["Heart", "Skin", "Large Intestine"], correctAnswer: "Skin"),
+        QuestionMultipleChoice(q: "Five dollars is worth how many nickels?", a: ["25", "50", "100"], correctAnswer: "100"),
+        QuestionMultipleChoice(q: "What do the letters in the GMT time zone stand for?", a: ["Global Meridian Time", "Greenwich Mean Time", "General Median Time"], correctAnswer: "Greenwich Mean Time"),
+        QuestionMultipleChoice(q: "What is the French word for 'hat'?", a: ["Chapeau", "Écharpe", "Bonnet"], correctAnswer: "Chapeau"),
+        QuestionMultipleChoice(q: "In past times, what would a gentleman keep in his fob pocket?", a: ["Notebook", "Handkerchief", "Watch"], correctAnswer: "Watch"),
+        QuestionMultipleChoice(q: "How would one say goodbye in Spanish?", a: ["Au Revoir", "Adiós", "Salir"], correctAnswer: "Adiós"),
+        QuestionMultipleChoice(q: "Which of these colours is NOT featured in the logo for Google?", a: ["Green", "Orange", "Blue"], correctAnswer: "Orange"),
+        QuestionMultipleChoice(q: "What alcoholic drink is made from molasses?", a: ["Rum", "Whisky", "Gin"], correctAnswer: "Rum"),
+        QuestionMultipleChoice(q: "What type of animal was Harambe?", a: ["Panda", "Gorilla", "Crocodile"], correctAnswer: "Gorilla"),
+        QuestionMultipleChoice(q: "Where is Tasmania located?", a: ["Indonesia", "Australia", "Scotland"], correctAnswer: "Australia")
+    
+    ]
+    
+    //let quiz = quizMultipleChoice
     var questionNumber = 0
     var score = 0
+    var quiz:[QuestionMultipleChoice]
+    
+    init() {
+        self.quiz = quizMultipleChoice
+    }
     
     mutating func checkAnswer(_ userAnswer: String) -> Bool{
         
-        if userAnswer == self.quiz[questionNumber].answer{
+        if userAnswer == self.quiz[questionNumber].correctAnswer{
             score+=1
             return true
         }else{
@@ -39,8 +60,12 @@ struct QuizBrain {
         
     }
     
+    func getOptionByIndex(index:Int) -> String{
+        return quizMultipleChoice[questionNumber].options[index]
+    }
+    
     func getQuestionText() -> String{
-        return quiz[questionNumber].text
+        return quiz[questionNumber].question
     }
     
     func getProgress() -> Float{
